@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 
 const app =express();
 
-const port= process.env.PORT || 3500
+const port= process.env.PORT || 5500
 require('dotenv').config();
 
 //middlewares
@@ -27,11 +27,11 @@ app.use(session({
     resave :true
 }));
 app.use(flash());
-app.use(fileupload);
+app.use(fileupload());
 
 app.set('layout','./layouts/main');
 
-app.set('view engine' ,'ejs')
+app.set('view engine' ,'ejs');
 
 const routes=require('./server/routes/reciperoutes.js');
 
