@@ -37,7 +37,7 @@ exports.explorecategories = async(req, res)=>{
     try{
         const limitnumber = 20;
         const categories =await Category.find({}).limit(limitnumber);
-        res.render('categories', {title:'Cooking Blogs-view all', categories})
+        res.render('categories', {title:'Cooking Blogs-Categories', categories})
 
     }catch(error){
         res.status(500).send({message : error.message || "Error occured"})
@@ -73,7 +73,7 @@ exports.explorecategoriesById = async(req, res)=>{
         let categoryId =req.params.id;
 
         const limitnumber = 20;
-        const categoryById =await Recipe.find({'category' :'categoryId'}).limit(limitnumber);
+        const categoryById =await Recipe.find({'category' :categoryId}).limit(limitnumber);
         res.render('categories', {title:'Cooking Blogs-view all', categoryById})
 
     }catch(error){
