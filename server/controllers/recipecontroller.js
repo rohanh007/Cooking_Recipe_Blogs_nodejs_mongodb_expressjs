@@ -2,7 +2,7 @@
 require('../models/database');
 const Category = require('../models/Category');
 const Recipe = require('../models/Recipe');
-
+const usercontact =require('../models/usercontact');
 
 /**
  * GET/
@@ -178,7 +178,172 @@ exports.submitRecipeOnpost = async(req, res) => {
     }
   }
   
+// About Section 
+
+
+  exports.aboutus = async(req, res)=>{
+     res.render('about', {title:'Cooking Blogs-About' });
+}
   
+// contact us open page
+
+exports.contactus = async(req, res)=>{
+ 
+    const infoErrorsObj =req.flash('infoErrors');
+    const infoSubmitsObj =req.flash('infoSubmit');
+    res.render('contact', {title:'Cooking Blogs-Contact',infoErrorsObj ,infoSubmitsObj});
+
+}
+// user contact storage into data base 
+
+
+exports.contactuspost =async(req,res) =>{
+    // if (!req.body.name || !req.body.email) {
+    //     // Redirect back to the contact form with an error message
+    //     res.redirect('/contact');
+    // }
+    try{
+    const newcontact = new usercontact({
+        message: req.body.message,
+        name: req.body.name,
+        email: req.body.email,
+    });
+     await newcontact.save(); 
+    //  res.render('contact', {title:'Cooking Blogs-Contact'});
+   }catch(error){
+    res.status(500).send({message : error.message || "Error occured"})
+   }
+    
+}
+
+// update recipe    ..
+exports.updaterecipe = async (req, res) => {
+    const id = req.params.id; // Assuming you are using the _id field to identify the recipe
+  
+    Recipe.findById(id) // Use findById to find the recipe by its _id
+      .then(result => {
+        if (!result) {
+          // Handle the case where the recipe is not found
+          return res.status(404).send('Recipe not found');
+        }
+  
+        // Render the template and pass the result data to it
+        res.render('updaterecipe', { update: result, title: 'Cooking Blogs-Update' });
+      })
+      .catch(err => {
+        console.log(err);
+        // Handle any errors that occur during database query
+        res.status(500).send('Internal Server Error');
+      });
+  };
+
+ 
+  exports.updaterecipeput = async (req, res) => {
+    try {
+      const recipeId = req.params.id; // Get the recipe ID from the URL parameter
+  
+      // Get the updated data from the form submission
+      const { name, email, description, ingredients, category } = req.body;
+      const {  index } = req.params;
+        const updatedIngredient = req.body.ingredient;
+    
+        // Find the recipe by ID
+        const recipe = await Recipe.findById(recipeId);
+    
+        if (!recipe) {
+          return res.status(404).send('Recipe not found');
+        }
+    
+        // Update the specific ingredient in the array
+        recipe.ingredients[index] = updatedIngredient;
+    
+        // Save the updated recipe
+        await recipe.save();
+  
+      // Update the recipe in the database using findOneAndUpdate
+      const updatedRecipe = await Recipe.findOneAndUpdate(
+        { _id: recipeId },
+        {
+          name,
+          email,
+          description,
+          ingredients, // This should be an array of ingredients
+          category,
+        },
+        { new: true } // Return the updated recipe
+      );
+  
+      if (!updatedRecipe) {
+        return res.status(404).send('Recipe not found');
+      }
+  
+      // Redirect to the recipe details page or any other appropriate page
+      res.redirect(`/recipe/${recipeId}`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+  
+
+//   exports.updateingredient =async(req,res)=>{
+
+//     try {
+//         const { _id, index } = req.params;
+//         const updatedIngredient = req.body.ingredient;
+    
+//         // Find the recipe by ID
+//         const recipe = await Recipe.findById(_id);
+    
+//         if (!recipe) {
+//           return res.status(404).send('Recipe not found');
+//         }
+    
+//         // Update the specific ingredient in the array
+//         recipe.ingredients[index] = updatedIngredient;
+    
+//         // Save the updated recipe
+//         await recipe.save();
+    
+//         res.status(200).send('Ingredient updated successfully');
+//       } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Internal Server Error');
+//       }
+//   }
+
+
+// delete recipe
+
+exports.deleterecipe = async (req, res) => {
+    try {
+        const recipeId = req.params.id;
+
+        // Find the recipe by ID and remove it from the database
+        const deletedRecipe = await Recipe.findByIdAndRemove(recipeId);
+
+        if (!deletedRecipe) {
+            return res.status(404).send('Recipe not found');
+        }
+
+        // Redirect to a success page or another appropriate page
+        // Redirect to a recipes listing page, for exampl
+        console.log("hello data are deleted ")
+        res.render('delete', {title:'Cooking Blogs-Contact'});
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+// exports.deletepage =async (req,res)=>{
+//     console.log("data delete")
+
+//     res.render('delete', {title:'Cooking Blogs-delete'});
+// }
+
+
   
   
   // Delete Recipe
@@ -191,78 +356,3 @@ exports.submitRecipeOnpost = async(req, res) => {
   // }
   // deleteRecipe();
 
-
-
-// async function insertDymmyRecipeData(){
-//   try {
-//     await Recipe.insertMany([
-//       { 
-//         "name": "Recipe Name Goes Here",
-//         "description": `Recipe Description Goes Here`,
-//         "email": "recipeemail@raddy.co.uk",
-//         "ingredients": [
-//           "1 level teaspoon baking powder",
-//           "1 level teaspoon cayenne pepper",
-//           "1 level teaspoon hot smoked paprika",
-//         ],
-//         "category": "Indian", 
-//         "image": "southern-friend-chicken.jpg"
-//       },
-//       { 
-//         "name": "Recipe Name Goes Here",
-//         "description": `Recipe Description Goes Here`,
-//         "email": "recipeemail@raddy.co.uk",
-//         "ingredients": [
-//           "1 level teaspoon baking powder",
-//           "1 level teaspoon cayenne pepper",
-//           "1 level teaspoon hot smoked paprika",
-//         ],
-//         "category": "American", 
-//         "image": "southern-friend-chicken.jpg"
-//       },
-//     ]);
-
-//   } catch (error) {
-//     console.log('err', + error)
-//   }
-// }
-
-// insertDymmyRecipeData();
-
-
-// async function insertDymmyCategoryData(){
-//       try {
-//         await Category.insertMany([
-//           {
-//             "name": "Thai",
-//             "image": "thai-food.jpg"
-//           },
-//           {
-//             "name": "American",
-//             "image": "american-food.jpg"
-//           }, 
-//           {
-//             "name": "Chinese",
-//             "image": "chinese-food.jpg"
-//           },
-//           {
-//             "name": "Mexican",
-//             "image": "mexican-food.jpg"
-//           }, 
-//           {
-//             "name": "Indian",
-//             "image": "indian-food.jpg"
-//           },
-//           {
-//             "name": "Spanish",
-//             "image": "spanish-food.jpg"
-//           }
-//         ]);
-//         console.log("done");
-//       } catch (error) {
-//         console.log('err',+error)
-//       }
-//     }
-    
-// insertDymmyCategoryData();
-    

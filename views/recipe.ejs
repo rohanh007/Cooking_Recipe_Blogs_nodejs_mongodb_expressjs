@@ -32,7 +32,17 @@
                         <% }) %>
                     </ul>
                 </div>
-            </div>
+            </div> 
+            <div class="row pt-4">
+                <div class="col-12  justify-content-center">
+                  <!-- Update button for the entire recipe -->
+                  <a href="/updaterecipe/<%- recipe._id %>" class="btn btn-primary btn-sm me-2 py-2">Update Recipe</a>
+                  <!-- Delete button for the entire recipe -->
+                  <!-- <form action="/delete/<%- recipe._id %>" method="POST"> -->
+                  <a href="/delete/<%- recipe._id %>" class="btn btn-danger btn-sm py-2">Delete Recipe</a>
+                <!-- </form> -->
+                </div>
+              </div> 
           </div>
       </div>   
     

@@ -14,5 +14,16 @@ router.get('/explore-latest',recipecontroller.exploreLatest);
 router.get('/random-recipe',recipecontroller.explorerandom);
 router.get('/submit-recipe',recipecontroller.submitRecipe);
 router.post('/submit-recipe',recipecontroller.submitRecipeOnpost);
+router.get('/about',recipecontroller.aboutus);
+router.get('/contact',recipecontroller.contactus);
+router.post('/contact',recipecontroller.contactuspost);
+ router.post('/updaterecipe/:id',recipecontroller.updaterecipeput);
+router.get('/updaterecipe/:id',recipecontroller.updaterecipe);
+// router.put('/updaterecipe/:id',recipecontroller.updateingredient);
+router.delete('/delete/:id',recipecontroller.deleterecipe);
+// router.get('/delete',recipecontroller.deletepage);
 
-module.exports =router;
+
+
+ 
+module.exports =router;   
