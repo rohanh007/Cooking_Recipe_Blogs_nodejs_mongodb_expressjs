@@ -1,18 +1,17 @@
 const mongoose = require('mongoose');
 
 const contactSchema = new mongoose.Schema({
-  message: {
+  message:{
     type: String,
     
   },
-   name: {
+   name:{
     type: String,
     required: 'This field is required.'
   },
-  email: {
+  email:{
     type: String,
     required: 'This field is required.'
   },
 })
-
 module.exports = mongoose.model('usercontact', contactSchema);

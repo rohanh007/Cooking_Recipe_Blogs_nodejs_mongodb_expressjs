@@ -9,7 +9,6 @@ router.get('/categories',recipecontroller.explorecategories);
 router.get('/categories/:id',recipecontroller.explorecategoriesById);
 router.get('/recipe/:id', recipecontroller.exploreRecipe);
 router.post('/search',recipecontroller.searchrecipe);
-
 router.get('/explore-latest',recipecontroller.exploreLatest);
 router.get('/random-recipe',recipecontroller.explorerandom);
 router.get('/submit-recipe',recipecontroller.submitRecipe);
@@ -22,7 +21,6 @@ router.get('/updaterecipe/:id',recipecontroller.updaterecipe);
 // router.put('/updaterecipe/:id',recipecontroller.updateingredient);
 router.delete('/delete/:id',recipecontroller.deleterecipe);
 // router.get('/delete',recipecontroller.deletepage);
-
 
 
  
