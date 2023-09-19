@@ -1,51 +1,38 @@
-<% if(recipe !=null ){%>
-    
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><%- recipe.name %></li>
-        </ol>
-      </nav>  
-    
-   
-      <div class="row ">
-         <div class="col-12 col-md-4">
+<% if(recipe != null) { %>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><%- recipe.name %></li>
+    </ol>
+  </nav>
 
-            <img src="/upload/<%- recipe.image %>" class="img-fluid sticky-top" style="top:20px ; position:relative"  alt="<%- recipe.name %>" loading="lazy">
-         </div>
-          <div class="col-12 col-md-8">
-            <div class="row">
-                <div class="col-12"> <h1><%- recipe.name %></h1></div>
-                <div class="col-12 mb-4"><i class="bi bi-tag"><%- recipe.category %></i></div>
-                 <div class="col-12" style="white-space : pre-line ;">
-                    <h4>Cooking Instructions</h4>
-                    <%- recipe.description %>
-                 </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <img src="/upload/<%- recipe.image %>" class="img-fluid sticky-top mb-3" style="top: 20px; position: relative;" alt="<%- recipe.name %>" loading="lazy">
+      </div>
+      <div class="col-12 col-md-8">
+        <h1 class="mb-4 mb-md-4"><%- recipe.name %></h1>
+        <p><i class="bi bi-tag"></i> <%- recipe.category %></p>
+        <h4>Cooking Instructions</h4>
+        <p style="white-space: pre-line;"><%- recipe.description %></p>
 
-            <div class="row pt-4">
-                <div class="col-12">
-                    <h4>Ingredients</h4>
-                    <ul class="list-group list-group-flush">
-                        <% recipe.ingredients.forEach(function(ingredients,index){ %>
-                            <li class="list-group-item"><%= ingredients %></li>
-                        <% }) %>
-                    </ul>
-                </div>
-            </div> 
-            <div class="row pt-4">
-                <div class="col-12  justify-content-center">
-                  <!-- Update button for the entire recipe -->
-                  <a href="/updaterecipe/<%- recipe._id %>" class="btn btn-primary btn-sm me-2 py-2">Update Recipe</a>
-                  <!-- Delete button for the entire recipe -->
-                  <!-- <form action="/delete/<%- recipe._id %>" method="POST"> -->
-                  <a href="/delete/<%- recipe._id %>" class="btn btn-danger btn-sm py-2">Delete Recipe</a>
-                <!-- </form> -->
-                </div>
-              </div> 
-          </div>
-      </div>   
-    
+        <h4>Ingredients</h4>
+        <ul class="list-group list-group-flush">
+          <% recipe.ingredients.forEach(function(ingredient, index){ %>
+            <li class="list-group-item"><%= ingredient %></li>
+          <% }) %>
+        </ul>
+
+        <div class="pt-4 justify-content-center">
+          <!-- Update button for the entire recipe -->
+          <a href="/updaterecipe/<%- recipe._id %>" class="btn btn-primary btn-sm me-2 py-2">Update Recipe</a>
+          <!-- Delete button for the entire recipe -->
+          <a href="/delete/<%- recipe._id %>" class="btn btn-danger btn-sm py-2">Delete Recipe</a>
+        </div>
+      </div>
+    </div>
+  </div>
 <% } else { %>
-     <p>No items found ....</p>
-    <% } %>
+  <p>No items found ....</p>
+<% } %>

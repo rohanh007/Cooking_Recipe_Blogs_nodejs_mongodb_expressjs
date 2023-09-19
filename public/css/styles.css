@@ -1,15 +1,19 @@
-:root{
-    --bs-font-sans-serif :'Rubik',sans-serif;
+:root {
+    --bs-font-sans-serif: 'Rubik', sans-serif;
 }
-.container-xxl {max-width: 1530px ;}
 
-body
-{
+.container-xl {
+    max-width: 1530px;
+}
+
+body {
     background-image: url("/img/i-like-food.svg");
     background-color: rgb(rgb(211, 205, 205), rgb(179, 182, 179), rgb(243, 243, 250));
 }
 
-a { color: var(--bs-dark);}
+a {
+    color: var(--bs-dark);
+}
 
 /* category style */
 
@@ -48,3 +52,8 @@ a { color: var(--bs-dark);}
     height: 330px;
 
 }
+.img-fixed {
+    width: 200px; /* Set your desired width */
+    height: 200px; /* Set your desired height */
+    object-fit: cover;
+  }

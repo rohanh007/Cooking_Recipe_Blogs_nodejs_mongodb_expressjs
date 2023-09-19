@@ -5,7 +5,7 @@
     <%  if(recipe !=' '){ %>
 
     <a href="/recipe/<%= recipe._id %>" class="col text-center category_link">
-        <div class="category_img category_img--large shadow ">
+        <div class="category_img category_img--large shadow img-fixed">
           <img src="upload/<%= recipe.image %>" alt="<%= recipe.name %> " loading="lazy">
         </div>
         <div class="pt-1"><%= recipe.name %></div>

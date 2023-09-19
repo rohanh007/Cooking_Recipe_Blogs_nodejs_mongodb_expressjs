@@ -1,82 +1,66 @@
+<div class="container">
+  <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Update <%- update.name %></li>
+      </ol>
+  </nav>
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Update <%- update.name %></li>
-  </ol>
-</nav>  
-
-
-<div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold">Update Your Recipe</h1>
-    <!-- <div class="col-lg-6 mx-auto">
-      <p class="lead">Share your amazing recipies with thousands of web developers accross the world. Fill our form to get started.</p>
-    </div> -->
+  <div class="px-4 py-5 my-5 text-center">
+      <h1 class="display-5 fw-bold">Update Your Recipe</h1>
   </div>
-  
+
   <div class="row justify-content-center">
-  
-
-  
-    <div class="col-8">
-  
-      <form action="/updaterecipe/<%= update._id %>" enctype="multipart/form-data" method="POST">
-      
-        <div class="row g-3">
-  
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" value="<%= update.email %>" id="email" class="form-control">
-          </div>
-  
-          <div class="col-12">
-            <label for="name" class="form-label">Recipe Name</label>
-            <input type="text" name="name" value="<%= update.name %>" id="name" class="form-control">
-          </div>
-          
-          <div class="col-12">
-            <label for="description" class="form-label">Description</label>
-            <textarea name="description" id="description" class="form-control" cols="30" rows="4"><%- update.description %></textarea>
-          </div>
-  
-          <div class="col-12">
-            <label for="name" class="form-label">Ingredients</label><br>
-            <small>Example: Ice</small>
-            <div class="ingredientList">
-              <% update.ingredients.forEach((ingredient, index) => { %>
-                  <div class="ingredientDiv mb-1">
-                      <input type="text" name="ingredients[]" value="<%= ingredient %>" class="form-control" style="margin-right: 10px;">
-                      <a href="#" class="removeIngredientLink">Remove</a>
+      <div class="col-md-8">
+          <form action="/updaterecipe/<%= update._id %>" enctype="multipart/form-data" method="POST">
+              <div class="row g-3">
+                  <div class="col-12">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" name="email" value="<%= update.email %>" id="email" class="form-control">
                   </div>
-              <% }); %>
-          </div>
-        </div>
-  
-          <div class="col-12">
-            <button type="button" class="btn btn-outline-primary" id="addIngredientsBtn">+ Ingredient</button>
-          </div>
-  
-          <div class="col-12">
-            <label for="category">Select Category</label>
-            <select class="form-select form-control" name="category" aria-label="Category">
-              <option selected>Select Category</option>
-              <option value="Thai" <%= (update.category === 'Thai') ? 'selected' : '' %>>Thai</option>
-              <option value="American" <%= (update.category === 'American') ? 'selected' : '' %>>American</option>
-              <option value="Chinese" <%= (update.category === 'Chinese') ? 'selected' : '' %>>Chinese</option>
-              <option value="Mexican" <%= (update.category === 'Mexican') ? 'selected' : '' %>>Mexican</option>
-              <option value="Indian" <%= (update.category === 'Indian') ? 'selected' : '' %>>Indian</option>
-            </select>
-          </div>
-  
-          <div class="col-12">
-            <label for="image">Product Image</label>
-            <input type="file" class="form-control" value="<%= update.image %>" name="image" accept="image/*">
-          </div>
-  
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary">update Recipe</button>
-          </div>
-        </div>
-      </form>
-    </div>
+                  <div class="col-12">
+                      <label for="name" class="form-label">Recipe Name</label>
+                      <input type="text" name="name" value="<%= update.name %>" id="name" class="form-control">
+                  </div>
+                  <div class="col-12">
+                      <label for="description" class="form-label">Description</label>
+                      <textarea name="description" id="description" class="form-control" cols="30" rows="4"><%- update.description %></textarea>
+                  </div>
+                  <div class="col-12">
+                      <label for="name" class="form-label">Ingredients</label><br>
+                      <small>Example: Ice</small>
+                      <div class="ingredientList">
+                          <% update.ingredients.forEach((ingredient, index) => { %>
+                          <div class="ingredientDiv mb-1">
+                              <input type="text" name="ingredients[]" value="<%= ingredient %>" class="form-control" style="margin-right: 10px;">
+                              <a href="#" class="removeIngredientLink">Remove</a>
+                          </div>
+                          <% }); %>
+                      </div>
+                  </div>
+                  <div class="col-12">
+                      <button type="button" class="btn btn-outline-primary" id="addIngredientsBtn">+ Ingredient</button>
+                  </div>
+                  <div class="col-12">
+                      <label for="category">Select Category</label>
+                      <select class="form-select form-control" name="category" aria-label="Category">
+                          <option selected>Select Category</option>
+                          <option value="Thai" <%= (update.category === 'Thai') ? 'selected' : '' %>>Thai</option>
+                          <option value="American" <%= (update.category === 'American') ? 'selected' : '' %>>American</option>
+                          <option value="Chinese" <%= (update.category === 'Chinese') ? 'selected' : '' %>>Chinese</option>
+                          <option value="Mexican" <%= (update.category === 'Mexican') ? 'selected' : '' %>>Mexican</option>
+                          <option value="Indian" <%= (update.category === 'Indian') ? 'selected' : '' %>>Indian</option>
+                      </select>
+                  </div>
+                  <div class="col-12">
+                      <label for="image">Product Image</label>
+                      <input type="file" class="form-control" value="<%= update.image %>" name="image" accept="image/*">
+                  </div>
+                  <div class="col-12">
+                      <button type="submit" class="btn btn-primary">update Recipe</button>
+                  </div>
+              </div>
+          </form>
+      </div>
   </div>
+</div>
