@@ -149,10 +149,11 @@ exports.submitRecipeOnpost = async(req, res) => {
         uploadPath = require('path').resolve('./') + '/public/upload/' + newImageName;
   
         imageUploadFile.mv(uploadPath, function(err){
-          if(err) return res.satus(500).send(err);
+          if(err) return res.status(500).send(err);
         })
   
       }
+      
   
       const newRecipe = new Recipe({
         name: req.body.name,
