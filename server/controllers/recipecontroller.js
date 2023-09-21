@@ -153,7 +153,7 @@ exports.submitRecipeOnpost = async(req, res) => {
         })
   
       }
-      
+
   
       const newRecipe = new Recipe({
         name: req.body.name,
@@ -242,7 +242,7 @@ exports.updaterecipe = async (req, res) => {
       // Get the updated data from the form submission
       const { name, email, description, ingredients, category } = req.body;
       const {  index } = req.params;
-        const updatedIngredient = req.body.ingredient;
+      const updatedIngredient = req.body.ingredient;
     
         // Find the recipe by ID
         const recipe = await Recipe.findById(recipeId);
@@ -317,12 +317,12 @@ exports.deleterecipe = async (req, res) => {
         const recipeId = req.params.id;
 
         // Find the recipe by ID and remove it from the database
-        const deletedRecipe = await Recipe.findByIdAndRemove(recipeId);
+        
 
         if (!deletedRecipe) {
             return res.status(404).send('Recipe not found');
         }
-
+       const deletedRecipe = await Recipe.findByIdAndRemove(recipeId);
         // Redirect to a success page or another appropriate page
         // Redirect to a recipes listing page, for exampl
         console.log("hello data are deleted ")
