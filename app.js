@@ -5,6 +5,8 @@ const fileupload =require('express-fileupload');
 const session =require('express-session');
 const flash  = require('connect-flash');
 const cookieParser = require('cookie-parser');
+const methodOverride = require('method-override');
+const MongoDBStore =require('connect-mongodb-session')(session);
 
 
 const app =express();
@@ -12,9 +14,10 @@ const app =express();
 const port= process.env.PORT || 5500
 require('dotenv').config();
 
-//middlewares
 
-app.use(express.urlencoded({extended: true}))
+
+app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 // app.use(express.static('public'))
 app.use(express.static('public', { 'extensions': ['html', 'css'] }));

@@ -43,3 +43,72 @@ ingredientList.addEventListener('click', function(event) {
     }
 });
 
+
+
+
+// Function to open the login popup
+// function openLoginPopup() {
+//     var popup = document.getElementById('loginPopup');
+//     var card = document.getElementById('loginCard');
+//     popup.style.display = 'block';
+//     card.style.display = 'block'; 
+    
+//   }
+  
+  // Function to close the login popup
+  function closeLoginPopup() {
+    var popup = document.getElementById('loginPopup');
+    var card = document.getElementById('loginCard');
+    popup.style.display = 'none';
+    card.style.display = 'none'; 
+
+
+    
+  }
+  var loginLink = document.querySelector('.login-link');
+  loginLink.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default behavior of the anchor tag
+    openLoginPopup(); // Open the login popup
+  })
+
+
+
+  
+document.addEventListener("DOMContentLoaded", function() {
+  function updateUserDisplayName(userName) {
+      const userNameDisplay = document.getElementById('userNameDisplay');
+
+      if (userNameDisplay) {
+          userNameDisplay.textContent = userName || 'Login';
+      }
+  }
+
+  function handlePopupAndLogin() {
+      // Handle the popup (replace with your popup logic)
+      openLoginPopup();
+
+      // Simulate a successful login (replace with actual login logic)
+      const user = {
+          name: "John", // Replace with the user's name or null if not logged in
+      };
+
+      // Check if user is logged in and update the display
+      if (user && user.name) {
+          updateUserDisplayName(user.name);
+      }
+  }
+
+  // You can also add a logout functionality using a similar approach
+  function handleLogoutClick() {
+      // Clear user data and update the display
+      updateUserDisplayName(null); // Show "Login"
+  }
+});
+  
+
+
+  // Automatically show the popup after 5 seconds (5000 milliseconds)
+  setTimeout(openLoginPopup, 5000); // Adjust the time as needed
+
+
+  

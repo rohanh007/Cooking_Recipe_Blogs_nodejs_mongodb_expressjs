@@ -1,8 +1,10 @@
 
 require('../models/database');
+const bcrypt = require('bcrypt');
 const Category = require('../models/Category');
 const Recipe = require('../models/Recipe');
 const usercontact =require('../models/usercontact');
+const User =require("../models/register");
 
 /**
  * GET/
@@ -242,7 +244,7 @@ exports.updaterecipe = async (req, res) => {
       // Get the updated data from the form submission
       const { name, email, description, ingredients, category } = req.body;
       const {  index } = req.params;
-      const updatedIngredient = req.body.ingredient;
+        const updatedIngredient = req.body.ingredient;
     
         // Find the recipe by ID
         const recipe = await Recipe.findById(recipeId);
@@ -311,22 +313,23 @@ exports.updaterecipe = async (req, res) => {
 
 
 // delete recipe
+exports.deletepage =async (req,res)=>{
+  console.log("data delete")
+
+  res.render('delete', {title:'Cooking Blogs-delete'});
+}
+
 
 exports.deleterecipe = async (req, res) => {
     try {
         const recipeId = req.params.id;
 
-        // Find the recipe by ID and remove it from the database
-        
-
-        if (!deletedRecipe) {
-            return res.status(404).send('Recipe not found');
-        }
-       const deletedRecipe = await Recipe.findByIdAndRemove(recipeId);
+     
+        await Recipe.findByIdAndRemove(recipeId);
         // Redirect to a success page or another appropriate page
         // Redirect to a recipes listing page, for exampl
         console.log("hello data are deleted ")
-        res.render('delete', {title:'Cooking Blogs-Contact'});
+        res.render('delete', {title:'Cooking Blogs-Recipe deleted' });
 
     } catch (error) {
         console.error(error);
@@ -335,14 +338,12 @@ exports.deleterecipe = async (req, res) => {
 };
 
 // exports.deletepage =async (req,res)=>{
-//     console.log("data delete")
+//   console.log("data delete")
 
-//     res.render('delete', {title:'Cooking Blogs-delete'});
+//   res.render('delete', {title:'Cooking Blogs-delete'});
 // }
 
-
-  
-  
+    
   // Delete Recipe
   // async function deleteRecipe(){
   //   try {
@@ -353,3 +354,71 @@ exports.deleterecipe = async (req, res) => {
   // }
   // deleteRecipe();
 
+
+  // registration form
+exports.registrationuserget =async (req,res)=>{
+  console.log("data delete")
+
+  res.render('registration', {title:'Cooking Blogs-registration'});
+}
+
+ 
+  exports.registrationuser =async (req,res)=>{
+    try {
+      const { username, email, password, confirmPassword } = req.body;
+  
+      // Check if the passwords match
+      if (password !== confirmPassword) {
+        return res.status(400).json({ message: "Passwords do not match" });
+      }
+  
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      // Create a new user
+      const newUser = new User({
+        username,
+        email,
+        password: hashedPassword,
+      });
+  
+      // Save the user to the database
+      await newUser.save();
+      res.redirect('/explore-latest');
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Registration failed" });
+    }
+
+}
+
+exports.loginget =async (req,res)=>{
+  console.log("login succesful")
+
+  res.render('login', {title:'Cooking Blogs-registration'});
+}
+
+exports.loginpost =async(req,res)=>{
+
+  try {
+    const { email, password } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(401).send('Invalid username or password');
+    return;
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    res.status(401).send('Invalid username or password');
+    return;
+  }
+
+  res.redirect('/')
+  } catch (error) {
+    console.error(error);
+    res.redirect('/login');
+  }
+}

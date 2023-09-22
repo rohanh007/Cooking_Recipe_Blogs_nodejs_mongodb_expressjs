@@ -16,11 +16,15 @@ router.post('/submit-recipe',recipecontroller.submitRecipeOnpost);
 router.get('/about',recipecontroller.aboutus);
 router.get('/contact',recipecontroller.contactus);
 router.post('/contact',recipecontroller.contactuspost);
- router.post('/updaterecipe/:id',recipecontroller.updaterecipeput);
+router.post('/updaterecipe/:id',recipecontroller.updaterecipeput);
 router.get('/updaterecipe/:id',recipecontroller.updaterecipe);
 // router.put('/updaterecipe/:id',recipecontroller.updateingredient);
-router.delete('/delete/:id',recipecontroller.deleterecipe);
-// router.get('/delete',recipecontroller.deletepage);
+router.post('/delete/:id',recipecontroller.deleterecipe);
+// router.get('/delete/:id',recipecontroller.deletepage);
+router.get('/registration',recipecontroller.registrationuserget);
+router.post('/registration',recipecontroller.registrationuser);
+router.get('/login',recipecontroller.loginget);
+router.post('/login',recipecontroller.loginpost);
 
 
  
