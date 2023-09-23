@@ -1,44 +1,30 @@
-
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card shadow-2-strong" id="loginCard" style="border-radius: 1rem;">
-            <div id="loginPopup" class="popup">
-                <div class="popup-content">
-                <div style="text-align: right; padding-right: 20px; padding-top: 10px;">
-                  <span class="close-popup" onclick="closeLoginPopup()">&times;</span>
-                  </div>
-            <div class="card-body p-5 text-center">
-  
-              <h3 class="mb-5">Sign in</h3>
-  
-              <form action="/login" method="POST">
-                <div class="form-outline mb-4">
-                  <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                  <label class="form-label" for="typeEmailX-2">Email</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="password" id="typePasswordX-2" name="password" class="form-control form-control-lg" />
-                  <label class="form-label" for="typePasswordX-2">Password</label>
-                </div>
-
-                <!-- Checkbox -->
-                <div class="form-check d-flex justify-content-start mb-4">
-                  <a href="/registration">Not a member</a>
-                </div>
-
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-              </form>
-  
-              <!-- <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
-                type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
-              <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
-                type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button> -->
-             </div>
-             </div>
-            </div>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
           </div>
-        </div>
+          <div class="modal-body">
+              <!-- Your login form can go here -->
+              <!-- Example form: -->
+              <form>
+                  <div class="form-group">
+                      <label for="username">Username</label>
+                      <input type="text" class="form-control" id="username" placeholder="Enter username">
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" placeholder="Password">
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Login</button>
+          </div>
       </div>
-    </div>
+  </div>
+</div>

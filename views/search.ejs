@@ -1,11 +1,11 @@
 <h1 class="pb-4">Search Results</h1>
 
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-2 g-lg-3">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 g-lg-3 img-fixed ">
     <% if(recipe != '') { %>
       <% recipe.forEach(function(recipe, index) { %>
         <div class="col text-center category_link">
-          <div class="category_img category_img--large shadow img-fixed">
+          <div class="category_img category_img--large shadow mb-0">
             <img src="upload/<%= recipe.image %>" alt="<%= recipe.name %>" loading="lazy">
           </div>
           <div class="pt-1"><%= recipe.name %></div>

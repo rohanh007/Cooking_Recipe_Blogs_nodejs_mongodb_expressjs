@@ -9,7 +9,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-4">
-        <img src="/upload/<%- recipe.image %>" class="img-fluid sticky-top mb-3" style="top: 20px; position: relative;" alt="<%- recipe.name %>" loading="lazy">
+        <img src="/upload/<%- recipe.image %>" class="img-fluid sticky-top mb-3" style="top: 20px; position: relative; max-height:60%;" alt="<%- recipe.name %>" loading="lazy">
       </div>
       <div class="col-12 col-md-8">
         <h1 class="mb-4 mb-md-4"><%- recipe.name %></h1>
@@ -24,14 +24,14 @@
           <% }) %>
         </ul>
 
-        <div class="pt-4 justify-content-center">
+        <div class="pt-4 justify-content-center align-items-center d-flex">
           <!-- Update button for the entire recipe -->
-          <a href="/updaterecipe/<%- recipe._id %>" class="btn btn-primary btn-sm me-2 py-2">Update Recipe</a>
+          <a href="/updaterecipe/<%- recipe._id %>" class="btn btn-primary btn-sm me-2 py-2">Update</a>
           <!-- Delete button for the entire recipe -->
           <!-- <a href="/delete/<%- recipe._id %>" class="btn btn-danger btn-sm py-2">Delete Recipe</a> -->
           <form method="POST" action="/delete/<%= recipe._id %>">
             <input type="hidden" name="_method" value="DELETE">
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn btn-danger btn-sm me-2 py-2">Delete</button>
           </form>
         </div>
       </div>

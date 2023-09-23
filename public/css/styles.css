@@ -3,7 +3,7 @@
 }
 
 .container-xl {
-    max-width: 1530px;
+    max-width:90%;
 }
 
 body {
@@ -60,7 +60,7 @@ a {
 }
 
 .category_img--large{ 
-    height: 300px;
+    height: 220px;
 
 }
 .img-fixed {
@@ -69,14 +69,6 @@ a {
     object-fit: cover;
   }
 
-  .eximg-fixed {
-    max-width:100%; /* Set your desired width */
-    max-height:fit-content;/* Set your desired height */
-    object-fit: cover;
-  }
 
-  .close-popup {
-    cursor: pointer;
-  }
 
 

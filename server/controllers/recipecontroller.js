@@ -134,48 +134,96 @@ exports.submitRecipe  = async(req, res)=>{
 
 
 // postmethod submit recipe
-exports.submitRecipeOnpost = async(req, res) => {
-    try {
+// exports.submitRecipeOnpost = async(req, res) => {
+//     try {
   
-      let imageUploadFile;
-      let uploadPath;
-      let newImageName;
+//       let imageUploadFile;
+//       let uploadPath;
+//       let newImageName;
   
-      if(!req.files || Object.keys(req.files).length === 0){
-        console.log('No Files where uploaded.');
-      } else {
+//       if(!req.files || Object.keys(req.files).length === 0){
+//         console.log('No Files where uploaded.');
+//       } else {
   
-        imageUploadFile = req.files.image;
-        newImageName = Date.now() + imageUploadFile.name;
+//         imageUploadFile = req.files.image;
+//         newImageName = Date.now() + imageUploadFile.name;
   
-        uploadPath = require('path').resolve('./') + '/public/upload/' + newImageName;
+//         uploadPath = require('path').resolve('./') + '/public/upload/' + newImageName;
   
-        imageUploadFile.mv(uploadPath, function(err){
-          if(err) return res.status(500).send(err);
-        })
+//         imageUploadFile.mv(uploadPath, function(err){
+//           if(err) return res.status(500).send(err);
+//         })
   
-      }
+//       }
 
   
-      const newRecipe = new Recipe({
-        name: req.body.name,
-        description: req.body.description,
-        email: req.body.email,
-        ingredients: req.body.ingredients,
-        category: req.body.category,
-        image: newImageName
-      });
+//       const newRecipe = new Recipe({
+//         name: req.body.name,
+//         description: req.body.description,
+//         email: req.body.email,
+//         ingredients: req.body.ingredients,
+//         category: req.body.category,
+//         image: newImageName
+//       });
       
-      await newRecipe.save();
+//       await newRecipe.save();
   
-      req.flash('infoSubmit', 'Recipe has been added.')
-      res.redirect('/submit-recipe');
-    } catch (error) {
-      // res.json(error);
-      req.flash('infoErrors', error);
-      res.redirect('/submit-recipe');
+//       req.flash('infoSubmit', 'Recipe has been added.')
+//       res.redirect('/submit-recipe');
+//     } catch (error) {
+//       // res.json(error);
+//       req.flash('infoErrors', error);
+//       res.redirect('/submit-recipe');
+//     }
+//   }
+
+//using aws sdk submit recipe
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
+
+
+exports.submitRecipeOnpost = async (req, res) => {
+  try {
+    let imageUploadFile;
+    let newImageName;
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+      console.log('No Files were uploaded.');
+    } else {
+      imageUploadFile = req.files.image;
+      newImageName = Date.now() + imageUploadFile.name;
+
+      const params = {
+        Bucket: 'your-s3-bucket-name',
+        Key: newImageName,
+        Body: imageUploadFile.data, // Assuming imageUploadFile is a buffer
+      };
+
+      // Upload the file to S3
+      await s3.upload(params).promise();
     }
+
+    const newRecipe = new Recipe({
+      name: req.body.name,
+      description: req.body.description,
+      email: req.body.email,
+      ingredients: req.body.ingredients,
+      category: req.body.category,
+      image: newImageName,
+    });
+
+    await newRecipe.save();
+
+    req.flash('infoSubmit', 'Recipe has been added.');
+    res.redirect('/submit-recipe');
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    req.flash('infoErrors', error.message);
+    res.redirect('/submit-recipe');
   }
+};
+
   
 // About Section 
 
