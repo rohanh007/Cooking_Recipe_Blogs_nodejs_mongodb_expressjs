@@ -1,5 +1,5 @@
 
-require('../models/database');
+// require('../../app');
 const bcrypt = require('bcrypt');
 const Category = require('../models/Category');
 const Recipe = require('../models/Recipe');
@@ -393,7 +393,7 @@ exports.registrationuserget =async (req,res)=>{
 }
 
 exports.loginget =async (req,res)=>{
-  console.log("login succesful")
+  
 
   res.render('login', {title:'Cooking Blogs-registration'});
 }

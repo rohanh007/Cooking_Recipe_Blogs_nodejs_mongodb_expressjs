@@ -1,48 +1,58 @@
-const express =require("express");
+const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const expresslayouts = require('express-ejs-layouts');
-const fileupload =require('express-fileupload');
-const session =require('express-session');
-const flash  = require('connect-flash');
+const fileupload = require('express-fileupload');
+const session = require('express-session');
+const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
-const MongoDBStore =require('connect-mongodb-session')(session);
+const MongoDBStore = require('connect-mongodb-session')(session);
+const mongoose = require('mongoose');
 
-
-const app =express();
-
-const port= process.env.PORT || 5500
+const app = express();
+const port = process.env.PORT || 5500;
 require('dotenv').config();
 
+// Connect to MongoDB using Mongoose
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
+const db = mongoose.connection;
 
-app.use(express.urlencoded({extended: true}));
-app.use(methodOverride('_method'));
+db.on('error', console.error.bind(console, 'connection error'));
 
-// app.use(express.static('public'))
-app.use(express.static('public', { 'extensions': ['html', 'css'] }));
+db.once('open', async () => {
+  console.log('Connection successful......');
 
+  // Now that the MongoDB connection is open, set up the Express server
 
-app.use(expressLayouts)
+  app.use(express.urlencoded({ extended: true }));
+  app.use(methodOverride('_method'));
 
-app.use(cookieParser('CookingBlogSecure'));
-app.use(session({
-    secret:'cookingBlogSecretSession',
-    saveUninitialized :true,
-    resave :true
-}));
-app.use(flash());
-app.use(fileupload());
+  // app.use(express.static('public'))
+  app.use(express.static('public', { 'extensions': ['html', 'css'] }));
 
-app.set('layout','./layouts/main');
+  app.use(expressLayouts);
 
-app.set('view engine' ,'ejs');
+  app.use(cookieParser('CookingBlogSecure'));
+  app.use(session({
+    secret: 'cookingBlogSecretSession',
+    saveUninitialized: true,
+    resave: true
+  }));
+  app.use(flash());
+  app.use(fileupload());
 
-const routes=require('./server/routes/reciperoutes.js');
+  app.set('layout', './layouts/main');
+  app.set('view engine', 'ejs');
 
-app.use('/', routes);
+  const routes = require('./server/routes/reciperoutes.js');
 
-app.listen(port, ()=>{
+  app.use('/', routes);
 
-    console.log(`listening on port ${port}`);
-})
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+  });
+});
