@@ -28,7 +28,7 @@
     <% if(typeof categoryById !== 'undefined' && categoryById.length > 0) { %>
       <% categoryById.forEach(function(recipe, index){ %>
         <div class="col">
-          <a href="/recipe/<%= recipe._id %>" class="text-center category_link">
+          <a href="/recipe/<%= recipe._id %>" class="text-center category_link mx-5">
             <div class="category_img category_img--large shadow mb-0 img-fixed ">
               <img src="/upload/<%= recipe.image %>" alt="<%= recipe.name %>" loading="lazy" class="img-fluid">
             </div>

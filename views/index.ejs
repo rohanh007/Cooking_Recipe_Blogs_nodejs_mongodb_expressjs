@@ -41,14 +41,14 @@
 <!-- Latest Recipes -->
 
 <section class="pb-4 pt-4">
-     <div class="d-flex mb-2 align-items-center" >
+     <div class="d-flex mb-4 align-items-center" >
         <h2>Latest Recipes</h2>
         <a href="/categories" class="ms-auto">View More</a>
      </div>
-     <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 img-fixed">
+     <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3 img-fixed mx-5">
         <%  if(food !=' '){ %>
            <% food.latest.forEach(function(recipe,index){ %>
-        <a href="/recipe/<%= recipe._id %>" class="col text-center category_link">
+        <a href="/recipe/<%= recipe._id %>" class="col text-center category_link ">
             <div class="category_img category_img--large shadow mb-0">
               <img src="upload/<%= recipe.image %>" alt="<%= recipe.name %> " loading="lazy" class="img-fluid">
             </div>
@@ -65,11 +65,11 @@
 
 
 <section class="pb-4 pt-4">
-    <div class="d-flex mb-2 align-items-center" >
+    <div class="d-flex mb-4 align-items-center" >
        <h2>Thai Recipes</h2>
        <a href="/categories/Thai" class="ms-auto">View More</a>
     </div>
-    <div class="row row-cols2 row-cols-lg-4 g-2 g-lg-3 img-fixed">
+    <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3 img-fixed mx-5">
        <%  if(typeof food.thai !== 'undefined' && food.thai.length >0){ %>
           <% food.thai.forEach(function(recipe,index){ %>
        <a href="/recipe/<%= recipe._id %>" class="col text-center category_link">
@@ -90,11 +90,11 @@
 
 
 <section class="pb-4 pt-4">
-    <div class="d-flex mb-2 align-items-center" >
+    <div class="d-flex mb-4 align-items-center" >
        <h2>Indian Recipe</h2>
        <a href="/categories/Indian" class="ms-auto">View More</a>
     </div>
-    <div class="row row-cols2 row-cols-lg-4 g-2 g-lg-3 img-fixed">
+    <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3 img-fixed mx-5">
        <%  if(typeof food.indian !== 'undefined' && food.indian.length >0){ %>
           <% food.indian.forEach(function(recipe,index){ %>
        <a href="/recipe/<%= recipe._id %>" class="col text-center category_link">
@@ -114,14 +114,14 @@
 
 
 <section class="pb-4 pt-4">
-    <div class="d-flex mb-2 align-items-center" >
+    <div class="d-flex mb-4 align-items-center" >
        <h2>American Recipe</h2>
        <a href="/categories/American" class="ms-auto">View More</a>
     </div>
-    <div class="row row-cols2 row-cols-lg-4 g-2 g-lg-3 img-fixed">
+    <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3 img-fixed mx-5">
        <%  if(typeof food.american !== 'undefined' && food.american.length >0){ %>
           <% food.american.forEach(function(recipe,index){ %>
-       <a href="/recipe/<%= recipe._id %>" class="col text-center category_link">
+       <a href="/recipe/<%= recipe._id %>" class="col text-center category_link ">
            <div class="category_img category_img--large shadow mb-0">
              <img src="upload/<%= recipe.image %>" alt="<%= recipe.name %> " loading="lazy" class="img-fluid">
            </div>
@@ -137,11 +137,11 @@
 </section>
 
 <section class="pb-4 pt-4">
-    <div class="d-flex mb-2 align-items-center" >
+    <div class="d-flex mb-4 align-items-center" >
        <h2>Chinese Recipe</h2>
        <a href="/categories/chinese" class="ms-auto">View More</a>
     </div>
-    <div class="row row-cols2 row-cols-lg-4 g-2 g-lg-3 img-fixed">
+    <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3 img-fixed mx-5">
        <%  if(typeof food.chinese !== 'undefined' && food.chinese.length >0){ %>
           <% food.chinese.forEach(function(recipe,index){ %>
        <a href="/recipe/<%= recipe._id %>" class="col text-center category_link">
