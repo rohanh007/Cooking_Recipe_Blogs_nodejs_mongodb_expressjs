@@ -69,7 +69,7 @@
        <h2>Thai Recipes</h2>
        <a href="/categories/Thai" class="ms-auto">View More</a>
     </div>
-    <div class="row row-cols-1 row-cols-md-2  row-cols-lg-4 g-2 g-lg-3 img-fixed mx-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 g-lg-3 img-fixed mx-5">
        <%  if(typeof food.thai !== 'undefined' && food.thai.length >0){ %>
           <% food.thai.forEach(function(recipe,index){ %>
        <a href="/recipe/<%= recipe._id %>" class="col text-center category_link">

@@ -179,8 +179,6 @@ exports.submitRecipe  = async(req, res)=>{
 
 //using aws sdk submit recipe
 const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
-
 
 exports.submitRecipeOnpost = async (req, res) => {
   try {
@@ -198,6 +196,14 @@ exports.submitRecipeOnpost = async (req, res) => {
         Key: newImageName,
         Body: imageUploadFile.data, // Assuming imageUploadFile is a buffer
       };
+
+      // Initialize AWS SDK
+      AWS.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      });
+
+      const s3 = new AWS.S3();
 
       // Upload the file to S3
       await s3.upload(params).promise();
@@ -404,47 +410,44 @@ exports.deleterecipe = async (req, res) => {
 
 
   // registration form
-exports.registrationuserget =async (req,res)=>{
-  console.log("data delete")
 
-  res.render('registration', {title:'Cooking Blogs-registration'});
-}
+// exports.registrationuserget = async (req, res) => {
+//   req.session.returnTo = req.url; // Save the original URL
+//   res.redirect('/register'); // Redirect to the login form
+// };
 
  
-  exports.registrationuser =async (req,res)=>{
+  exports.registrationuser = async (req, res) => {
     try {
-      const { username, email, password, confirmPassword } = req.body;
-  
-      // Check if the passwords match
-      if (password !== confirmPassword) {
-        return res.status(400).json({ message: "Passwords do not match" });
-      }
-  
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
-      // Create a new user
-      const newUser = new User({
-        username,
-        email,
-        password: hashedPassword,
-      });
-  
-      // Save the user to the database
-      await newUser.save();
-      res.redirect('/explore-latest');
+        // const { username, email, password } = req.body;
+        console.log(req.body.username);
+        // Hash the password
+        const saltRounds = 5; // You can adjust the number of rounds as needed
+        const salt = await bcrypt.genSalt(saltRounds);
+         const hashedPassword = await bcrypt.hash(req.body.password, salt);
+         // Create a new user
+        const newUser = new User({
+           username:req.body.username,
+           email:req.body.email,
+            password: hashedPassword,
+         });
+
+            // Save the user to the database
+             await newUser.save();
+             const returnTo = req.session.returnTo || '/';
+             res.redirect(returnTo);
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Registration failed" });
+        console.error(error);
+        return res.status(500).json({ message: "Registration failed" });
     }
 
+     
 }
 
-exports.loginget =async (req,res)=>{
-  
-
-  res.render('login', {title:'Cooking Blogs-registration'});
-}
+// exports.loginget = async (req, res) => {
+//   req.session.returnTo = req.url; // Save the original URL
+//   res.redirect('/login'); // Redirect to the login form
+// };
 
 exports.loginpost =async(req,res)=>{
 
@@ -463,10 +466,11 @@ exports.loginpost =async(req,res)=>{
     res.status(401).send('Invalid username or password');
     return;
   }
-
-  res.redirect('/')
+  console.log('hello its working')
+  const returnTo = req.session.returnTo || '/';
+  res.redirect(returnTo);
   } catch (error) {
     console.error(error);
-    res.redirect('/login');
+    res.redirect('/');
   }
 }

@@ -8,6 +8,9 @@ const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const AWS = require('aws-sdk');
+
 
 const app = express();
 const port = process.env.PORT || 5500;
@@ -28,8 +31,15 @@ db.once('open', async () => {
 
   // Now that the MongoDB connection is open, set up the Express server
 
+  app.use(session({
+    secret: 'form_session', // Change this to a secret key
+    resave: false,
+    saveUninitialized: true,
+}));
+
   app.use(express.urlencoded({ extended: true }));
   app.use(methodOverride('_method'));
+  app.use(bodyParser.json());
 
   // app.use(express.static('public'))
   app.use(express.static('public', { 'extensions': ['html', 'css'] }));

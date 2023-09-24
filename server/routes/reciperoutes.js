@@ -20,10 +20,9 @@ router.post('/updaterecipe/:id',recipecontroller.updaterecipeput);
 router.get('/updaterecipe/:id',recipecontroller.updaterecipe);
 // router.put('/updaterecipe/:id',recipecontroller.updateingredient);
 router.post('/delete/:id',recipecontroller.deleterecipe);
-// router.get('/delete/:id',recipecontroller.deletepage);
-router.get('/registration',recipecontroller.registrationuserget);
-router.post('/registration',recipecontroller.registrationuser);
-router.get('/login',recipecontroller.loginget);
+// router.get('/register',recipecontroller.registrationuserget);
+// router.get('/login',recipecontroller.loginget);
+router.post('/register',recipecontroller.registrationuser);
 router.post('/login',recipecontroller.loginpost);
 
 
