@@ -1,6 +1,3 @@
-Absolutely, integrating a link to the LinkedIn post in your GitHub README is a great way to showcase your project and its recent updates. Here's a template you can use:
-
----
 
 # Cooking Blog Recipes - Node.js, Express.js, MongoDB Project
 
