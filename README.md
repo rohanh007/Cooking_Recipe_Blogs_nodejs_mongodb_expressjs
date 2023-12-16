@@ -44,6 +44,3 @@ Thank you for checking out Cooking Blog Recipes! Let's embark on this culinary j
 
 \#NodeJS #ExpressJS #MongoDB #CookingBlog #RecipeSharing #TechInFood #WebDevelopment #PassionateCooking
 
----
-
-Don't forget to replace `<https://www.linkedin.com/posts/rohan-hoval-1163211ab_thrilled-to-share-my-latest-project-a-dynamic-activity-7141671184340885504-Dd4I?utm_source=share&utm_medium=member_desktop>` with the actual link to your LinkedIn post. This will create a comprehensive README that provides an overview of your project, includes a link to the LinkedIn post, and invites others to contribute or provide feedback.
